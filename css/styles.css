@@ -1,0 +1,2288 @@
+/* -------------------- */
+/* CSS Reset & Variables */
+/* -------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Final Defined Colors/Gradients */
+  --color-primary-text: #032e15;
+  --color-tagline-bg: #528a5a;
+  --color-white: #fff;
+  --color-border: #ddd;
+
+  --color-btn-gradient-start: #032e15;
+  --color-btn-gradient-end: #016630;
+
+  /* Stat Number Gradient (Used for Stat Numbers, Tagline Background, AND Logo Color) */
+  --color-stat-gradient: linear-gradient(
+    180deg,
+    rgba(3, 46, 21, 0.6) 0%,
+    rgba(1, 102, 48, 0.6) 100%
+  );
+
+  /* Tagline Gradient Border */
+  --color-tagline-border-gradient: linear-gradient(
+    90.05deg,
+    rgba(255, 255, 255, 0.5) 0.04%,
+    rgba(252, 252, 252, 0.4) 102.54%
+  );
+
+  --font-main: "Inter", sans-serif;
+
+  /* Desktop Measurement Variables */
+  --max-desktop-width: 1456px;
+  --desktop-padding: 64.72px;
+  --hero-content-width: 692px;
+  --stat-gap: 36px;
+
+  /* Global left offset to nudge all left-aligned blocks to the right */
+  --left-offset: 56px;
+  /* Navbar-only extra offset (can be larger than --left-offset) */
+  --nav-left-offset: 128px;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-primary-text);
+  background: #0f0f0f; /* full-page black backdrop */
+}
+
+.container {
+  max-width: var(--max-desktop-width);
+  margin: 0 auto;
+}
+
+/* Figma board background wrapper */
+.site-canvas {
+  width: 2328px;
+  height: 6540px;
+  background: #342B15;
+  border: 1px solid #FFFFFF1A;
+  border-radius: 2px;
+  margin: 200px auto 0;
+  position: relative;
+  box-sizing: border-box;
+  padding-left: var(--left-offset);
+}
+
+/* Top page label aligned with hero width */
+.page-label {
+  position: absolute; /* scrolls with the page (anchored to canvas) */
+  top: 20px;
+  left: var(--left-offset);
+  z-index: 30;
+}
+/* Keep the badge stable on smaller viewports by pinning to a fixed left margin */
+@media (max-width: 1440px) {
+  .page-label {
+    left: 16px;
+  }
+}
+@media (max-width: 1024px) {
+  .page-label {
+    top: 16px;
+    left: 16px;
+  }
+}
+/* top-black-bar removed per request */
+.page-label .tag {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #000000;
+  border: 1px solid #2A2A2A;
+  color: #EAEAEA;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.6);
+}
+
+.page-title {
+  position: absolute; /* overlay label that does not shift navbar */
+  top: -40px; /* raised further */
+  left: var(--left-offset); /* align with global left offset (further left) */
+  transform: none;
+  width: auto;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #EAEAEA; /* hash color for plain text */
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  line-height: normal;
+  box-shadow: none;
+  z-index: 10;
+  pointer-events: none; /* never intercepts clicks */
+}
+/* Top canvas heading tag */
+.canvas-heading {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid #FFFFFF1A;
+  color: #EAEAEA;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1;
+  z-index: 30;
+}
+
+/* -------------------- */
+/* 1. Header Styling */
+/* -------------------- */
+.header-home {
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: var(--nav-left-offset); /* navbar moved further right */
+  width: 1456.2547607421875px; /* match hero width */
+  transform: none;
+  z-index: 20;
+  transition: background-color 0.3s ease;
+}
+
+.main-header:not(.header-home) {
+  background-color: var(--color-white);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1326.8099365234375px; /* per spec */
+  height: 49px;
+  margin-left: 0;   /* align content to left */
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+  border-bottom: 1.01px solid var(--color-border);
+}
+
+/* GRADIENT TEXT: Applied ONLY to the logo */
+.logo {
+  background-image: var(--color-stat-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+/* NAVIGATION LINKS (Home, Shop, etc.): APPLY NEW SOLID STYLES */
+.main-nav-home a {
+  /* Reset gradient and clipping */
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+
+  /* Apply specified properties */
+  font-weight: 400;
+  font-size: 16.18px;
+  line-height: 150%;
+  letter-spacing: 0;
+  color: #162456; /* Solid color */
+  font-style: normal;
+  text-decoration: none;
+
+  /* Ensure link text and icon are inline and vertically centered */
+  display: flex;
+  align-items: center;
+
+  /* *** FINAL FIX: PREVENT CHEVRON FROM WRAPPING *** */
+  flex-wrap: nowrap;
+}
+
+/* *** CHEVRON ICON STYLING (FINAL ALIGNMENT FIX WITH PRECISE DIMENSIONS) *** */
+.main-nav-home a .fa-chevron-down {
+  /* Use the specified height for font-size to control the icon visual size */
+  font-size: 7.21px;
+
+  /* Set explicit dimensions */
+  width: 12.74px; /* Using rounded value 12.736... */
+  height: 7.21px; /* Using rounded value 7.205... */
+
+  /* Specified properties */
+  color: var(--color-primary-text); /* #032E15 */
+  opacity: 1;
+
+  /* Position adjustments for alignment */
+  position: relative;
+  top: 1px; /* Adjusting top down slightly to represent 8.8px vertical offset */
+  margin-left: 5.77px; /* Specified horizontal offset (left: 5.77px) as margin */
+
+  /* Ensure it behaves correctly next to the text */
+  display: inline-block;
+  line-height: 1;
+}
+
+.main-nav-home ul {
+  list-style: none;
+  display: flex;
+  gap: 32.36px; /* per spec */
+}
+
+/* Horizontal Alignment for Search Icon and Button */
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-actions a {
+  text-decoration: none;
+}
+
+/* SEARCH ICON STYLING */
+.search-icon {
+  background: none;
+  color: inherit;
+
+  width: 26.71px;
+  height: 26.72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.search-icon i.fa-magnifying-glass {
+  color: var(--color-primary-text); /* #032E15 */
+  opacity: 1;
+  font-size: 18px;
+}
+
+/* SHOP NOW BUTTON: GRADIENT BACKGROUND AND SOLID WHITE TEXT */
+.btn-shop-now {
+  color: var(--color-white);
+  background: linear-gradient(180deg, #032e15 0%, #016630 100%);
+
+  -webkit-background-clip: padding-box !important;
+  background-clip: padding-box !important;
+
+  text-decoration: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  margin-left: 0;
+
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+.hamburger-menu {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  width: 44px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger-menu span { /* hide old bar spans in favor of icons */
+  display: none;
+}
+.hamburger-menu .icon-bars,
+.hamburger-menu .icon-close {
+  font-size: 22px;
+  color: var(--color-primary-text);
+  line-height: 1;
+}
+.hamburger-menu .icon-close {
+  display: none;
+}
+.hamburger-menu.is-open .icon-bars {
+  display: none;
+}
+.hamburger-menu.is-open .icon-close {
+  display: inline-block;
+}
+.hamburger-menu span {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  background: var(--color-primary-text);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.hamburger-menu span + span {
+  margin-top: 5px;
+}
+
+.hamburger-menu.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger-menu.is-open span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-6px);
+}
+.hamburger-menu.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* -------------------- */
+/* 2. Hero Section */
+/* -------------------- */
+
+.hero-section {
+  position: relative;
+  width: 1456.2547607421875px; /* per spec */
+  height: 794px; /* per spec */
+  overflow: hidden;
+  background-image: url("../assets/hero-background.jpg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  margin-top: 1px;
+  margin-left: 0;      /* align to left like other sections */
+  margin-right: auto;
+}
+
+
+.hero-content {
+  position: absolute;
+  z-index: 10;
+  top: 177.5px; /* per spec */
+  left: 74px;   /* per spec */
+  width: 692px; /* per spec */
+  min-height: 344px;
+  padding: 0;
+  transform: none;
+}
+
+/* --- Tagline Styling --- */
+.hero-tagline {
+  /* DIMENSIONS & PADDING */
+  width: 356px;
+  height: 40px;
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+
+  /* SHAPE & BACKGROUND */
+  border-radius: 10000px;
+  background: var(--color-stat-gradient);
+  color: var(--color-white);
+
+  /* GRADIENT BORDER */
+  border: 0.5px solid transparent;
+  border-image: var(--color-tagline-border-gradient) 1;
+
+  /* TYPOGRAPHY & FLEX LAYOUT */
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: var(--stat-gap);
+}
+
+.hero-tagline p {
+  margin: 0;
+  line-height: 1;
+}
+
+.hero-tagline .medal-icon {
+  /* ICON DIMENSIONS (24x24px) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  opacity: 1;
+
+  /* FONT AWESOME STYLES */
+  color: var(--color-white);
+  font-size: 18px;
+}
+
+/* --- Headline Styling --- */
+.hero-headline {
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1.12;
+  letter-spacing: -1.33px;
+
+  width: var(--hero-content-width);
+  height: 63px;
+  color: var(--color-primary-text);
+
+  margin-bottom: var(--stat-gap);
+}
+
+/* --- Statistics Styling --- */
+.hero-stats {
+  display: flex;
+  gap: 36px; /* per spec */
+  margin-bottom: var(--stat-gap);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: 0px;
+
+  /* APPLY TEXT GRADIENT */
+  background-image: var(--color-stat-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  display: inline-block;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-tagline-bg);
+  margin-top: 0.5rem;
+}
+
+/* --- Hero Button Styling --- */
+.btn-primary-hero {
+  /* This button uses the defined variables */
+  background: linear-gradient(
+    180deg,
+    var(--color-btn-gradient-start) 0%,
+    var(--color-btn-gradient-end) 100%
+  );
+  color: var(--color-white);
+
+  width: 185.33px;
+  height: 48px;
+
+  padding-top: 12px;
+  padding-right: 16px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+
+  border-radius: 100px;
+
+  text-align: center;
+  line-height: 24px;
+
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* -------------------- */
+/* 4. Product Section */
+/* -------------------- */
+.product-section {
+  /* Reduce side padding so content sits further left */
+  padding: 80px 8px;
+  background-color: var(--color-white);
+}
+
+/* Left-align the product section within the canvas (do not center) */
+.product-section.container {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+/* Left align the percentage container as well */
+.percentage-section.container {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  padding-left: 8px;
+  padding-right: 24px;
+}
+
+/* Left align the detailed info section */
+.product-page-wrapper .detailed-info-section {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.product-container {
+  display: grid;
+  /* CRITICAL: Use fixed widths of 610px for each column */
+  grid-template-columns: 610px 610px;
+
+  /* CRITICAL: Gap set to exactly 92px */
+  gap: 92px;
+
+  /* CRITICAL: Max-width is the sum: 610 + 92 + 610 = 1332px */
+  max-width: 1332px;
+
+  align-items: start;
+  height: auto;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Product Gallery */
+.product-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* ~24px */
+  /* ENFORCE WIDTH on the column container */
+  width: 610px;
+}
+
+.gallery-main {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  /* ENFORCE WIDTH on the main image container */
+  width: 610px;
+  height: auto;
+  aspect-ratio: 610 / 673;
+}
+
+.gallery-main-image {
+  position: relative;
+  /* ENFORCE WIDTH on the image wrapper */
+  width: 610px;
+  height: auto;
+  aspect-ratio: 610 / 673;
+}
+
+.gallery-main-image img {
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+  /* ENFORCE WIDTH on the actual image */
+  width: 610px;
+  height: auto;
+  aspect-ratio: 610 / 673;
+}
+
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, #032e15 0%, #016630 100%);
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0.9;
+}
+
+.gallery-arrow:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.gallery-arrow-prev {
+  left: 16px;
+}
+
+.gallery-arrow-next {
+  right: 16px;
+}
+
+.gallery-arrow i {
+  color: var(--color-white);
+  font-size: 1.2rem;
+}
+
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.gallery-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-border);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  padding: 0;
+}
+
+.gallery-dot.active {
+  background: var(--color-primary-text);
+  transform: scale(1.2);
+}
+
+.gallery-dot:hover {
+  background: var(--color-tagline-bg);
+}
+
+/* --- Gallery Thumbnails Styling FIX --- */
+.gallery-thumbnails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* ENFORCED: 10px vertical gap between rows */
+  justify-content: center;
+  width: 100%; /* Spans the 610px width of the column */
+}
+
+.thumbnail-row {
+  display: flex;
+  /* Adjust gap between images to fit the overall width */
+  gap: 0.75rem; /* ~12px gap */
+  justify-content: center;
+  align-items: center;
+  /* ENFORCED: 131px height for the row container (as requested) */
+  height: 131px;
+  /* ENFORCED: 608px width is close to 610px, setting max-width to constrain */
+  max-width: 608px;
+  width: 100%;
+  margin: 0 auto; /* Center the row if max-width < 610px */
+}
+
+/* Individual Thumbnail Sizing within the 131px tall row */
+gallery-thumbnails .thumbnail {
+  /* Calculate the thumbnail size based on the 131px height (or let it be smaller for padding/aesthetics) */
+  /* If the thumbnail image is 131px tall, the width is proportional */
+  width: 120px; /* Example size to fit roughly 5 images across 608px with gaps */
+  height: 120px; /* Set individual height slightly less than row height */
+
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.6;
+}
+
+.gallery-thumbnails .thumbnail:hover {
+  opacity: 1;
+  border-color: var(--color-tagline-bg);
+}
+
+.gallery-thumbnails .thumbnail.active {
+  opacity: 1;
+  border-color: var(--color-primary-text);
+}
+
+/* Product Details */
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* ENFORCE WIDTH on the column container */
+  width: 610px;
+  /* Crucial: Ensure height is auto to allow the radio content to push down */
+  height: auto;
+}
+
+/* Product Header */
+.product-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.product-brand {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary-text);
+  margin: 0;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  color: #ffc107;
+}
+
+.stars i {
+  font-size: 1rem;
+}
+
+.rating-text {
+  font-size: 0.95rem;
+  color: var(--color-primary-text);
+}
+
+/* Product Description */
+.product-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-primary-text);
+  margin: 0;
+}
+
+/* Most Popular Badge */
+.most-popular-badge {
+  display: inline-block;
+  width: 100%; /* Should inherit 610px from parent, use 100% for safety */
+  height: 43.48538589477539px;
+  background: linear-gradient(270deg, #032e15 0%, #008236 51.92%, #00c950 100%);
+  border: 1.01px solid #b8b8b8;
+  border-top-left-radius: 6.07px;
+  border-top-right-radius: 6.07px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  color: var(--color-white);
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 43.48538589477539px;
+  opacity: 1;
+}
+
+/* Subscription Options */
+.subscription-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.subscription-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0.75rem 0;
+}
+
+.subscription-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--color-primary-text);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.subscription-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary-text);
+  flex: 1;
+}
+
+.subscription-price {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.current-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary-text);
+}
+
+.strikethrough-price {
+  font-size: 1rem;
+  color: #999;
+  text-decoration: line-through;
+}
+
+/* Subscription Divider Line */
+.subscription-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #b8b8b8;
+  margin: 1rem 0 1.5rem 0;
+}
+
+/* -------------------- */
+/* Subscription Cards (Exact Sizing) */
+/* -------------------- */
+.subscription-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.subscription-card {
+  width: 610px;
+  background: var(--color-white);
+  border: 1.01px solid #b8b8b8;
+  border-radius: 6.07px;
+  overflow: hidden;
+}
+.subscription-card-single {
+  height: 56.63212966918945px;
+  display: flex;
+  align-items: stretch;
+}
+.subscription-card-double {
+  height: 882px;
+  display: flex;
+  flex-direction: column;
+}
+.subscription-card-double-collapsed {
+  height: 56.63212966918945px;
+  display: flex;
+  align-items: stretch;
+}
+.subscription-card-header {
+  height: 56.63212966918945px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: #f9f9f9;
+}
+.subscription-card-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--color-primary-text);
+}
+.subscription-card-header-inner input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary-text);
+  margin: 0;
+}
+.subscription-card-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.subscription-card-price .price-now {
+  font-weight: 700;
+  color: var(--color-primary-text);
+}
+.subscription-card-price .price-was {
+  color: #999;
+  text-decoration: line-through;
+}
+.subscription-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 16px;
+}
+.choose-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.choose-title {
+  font-size: 12px;
+  color: #666;
+}
+.mini-fragrance-row {
+  display: flex;
+  gap: 16px;
+}
+.mini-fragrance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 88px;
+}
+.mini-fragrance input[type="radio"] {
+  display: none;
+}
+.mini-fragrance img {
+  width: 48px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  padding: 6px;
+}
+.mini-fragrance .mini-name {
+  font-size: 11px;
+  color: var(--color-primary-text);
+}
+.whats-included-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.included-title {
+  font-size: 12px;
+  color: #666;
+}
+.included-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.included-card {
+  border: 1px solid #cdcdcd;
+  border-radius: 6px;
+  background: #fff;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+}
+.included-card-title {
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #666;
+  border-bottom: 1px solid #e6e6e6;
+}
+.included-card-title .free-tag {
+  color: var(--color-tagline-bg);
+  font-weight: 600;
+}
+.included-card-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.included-card-body img {
+  width: 44px;
+  height: 64px;
+  object-fit: contain;
+}
+.included-samplers img {
+  width: 36px;
+  height: 56px;
+}
+.benefits-list.compact {
+  gap: 6px;
+  margin-top: 6px;
+}
+
+/* Page Aside - place subscription cards to the right of main container */
+.page-aside-subscription {
+  position: absolute; /* anchor to .site-canvas, not viewport */
+  top: 1960px; /* moved further downward per request */
+  right: 40px; /* add a bit more left shift to avoid overlapping layouts */
+  width: 610px;
+  z-index: 5;
+}
+
+.aside-title {
+  margin: 0 0 10px 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #cfe7db; /* soft light green to read on dark background */
+}
+/* Hide in-flow copy inside product details */
+.product-details .subscription-cards {
+  display: none;
+}
+/* Prevent overflow on smaller viewports */
+@media (max-width: 1720px) {
+  .page-aside-subscription {
+    display: none;
+  }
+}
+/* Fragrance Section Wrapper with Blue Border */
+.fragrance-section-wrapper {
+  padding: 1.5rem;
+}
+
+.fragrance-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.fragrance-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary-text);
+  margin: 0;
+}
+
+.fragrance-options {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.fragrance-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 1rem;
+  width: calc((100% - 48px) / 3);
+  min-width: 0;
+  height: auto;
+  background: #f9f9f9;
+  border-radius: 6.07px;
+  opacity: 1;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.fragrance-option:hover {
+  border-color: var(--color-tagline-bg);
+  background-color: rgba(3, 46, 21, 0.02);
+}
+
+.fragrance-option input[type="radio"] {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--color-primary-text);
+  z-index: 5;
+  margin: 0;
+}
+
+.fragrance-badge-top {
+  position: absolute;
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(270deg, #032e15 0%, #008236 51.92%, #00c950 100%);
+  color: var(--color-white);
+  padding: 0.35rem 0.85rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.fragrance-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary-text);
+  margin-top: 2rem;
+}
+
+.fragrance-icon {
+  object-fit: contain;
+  position: relative;
+  top: 10px;
+  opacity: 1;
+}
+
+/* What's Included Section */
+.whats-included-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.whats-included-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary-text);
+  margin: 0 0 1rem 0;
+}
+
+/* EXPANDABLE CONTENT FIXES */
+
+/* Base style for the content that expands/collapses */
+.subscription-expanded-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 1rem;
+  transition: max-height 0.4s ease-in-out, opacity 0.4s ease, padding 0.4s ease,
+    margin-bottom 0.4s ease;
+  background-color: var(--color-white);
+}
+
+/* State when the radio button is CHECKED */
+.expandable-option
+  input[type="radio"]:checked
+  ~ .subscription-expanded-content {
+  /* Set max-height high enough to contain content + padding + margin */
+  max-height: 800px;
+  opacity: 1;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  /* CRITICAL FIX: Add margin to push elements below (Benefits List) downward */
+  margin-bottom: 24px;
+}
+
+/* Styling for the content inside the expansion */
+.included-images-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.included-main-bottle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* /*********************************************/
+/* CRITICAL FIX: What's Included Section Layout */
+/* Enforces 220px Height and Specific Widths */
+/*********************************************/
+
+/* Wrapper for the two boxes */
+.included-options-container {
+  display: flex;
+  /* Fixed gap between the two boxes */
+  gap: 1.5rem; /* 24px */
+  width: 100%;
+  align-items: stretch; /* Ensures both boxes stretch to the defined height */
+}
+
+.included-box {
+  /* Enforce the exact height you specified */
+  height: 220px;
+
+  /* Apply the border style you specified */
+  border: 1.01px solid #919798;
+  border-radius: 8px;
+  padding: 1rem;
+
+  /* Arrange content (Title and Image/Samplers) vertically */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box; /* Include padding/border in the 220px height */
+}
+
+/* Left Box (Main Bottle) */
+.main-bottle-box {
+  /* Enforce the exact width you specified: 166.73px */
+  width: 167px;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+/* Right Box (Samplers) */
+.samplers-box {
+  /* This box fills the remaining space, constrained by the max width */
+  flex-grow: 1;
+  /* Enforce the exact width you specified: 328.17px */
+  max-width: 328px;
+  width: auto;
+}
+
+/* Titles inside the boxes */
+.included-box-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary-text);
+  /* CRITICAL: Pushes all subsequent content to the bottom */
+  margin-bottom: auto;
+  width: 100%;
+}
+
+.included-box-title .free-text {
+  color: var(--color-tagline-bg);
+}
+
+/* Image Wrappers: Align images to the bottom of the 220px box */
+.included-main-bottle-wrapper,
+.included-samplers-row {
+  /* CRITICAL: Use margin-top: auto to position the image at the bottom */
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Ensures content within the wrapper is at the bottom */
+  width: 100%;
+  padding-bottom: 0.5rem; /* Small space above the bottom edge */
+}
+
+/* Bottle sizing adjustments to look proportional within the 220px box */
+.included-bottle-large {
+  width: 130px;
+  height: auto;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+/* Sampler sizing */
+.sampler-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+/* Benefits List (This is the content that follows the expansion) */
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.benefits-list li {
+  font-size: 0.95rem;
+  color: var(--color-primary-text);
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.benefits-list li i {
+  color: var(--color-tagline-bg);
+  font-size: 1rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.benefits-list li strong {
+  font-weight: 700;
+  color: var(--color-primary-text);
+}
+
+.btn-add-to-cart {
+  background: linear-gradient(
+    180deg,
+    var(--color-btn-gradient-start) 0%,
+    var(--color-btn-gradient-end) 100%
+  );
+  color: var(--color-white);
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  display: inline-block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 1rem;
+}
+
+.btn-add-to-cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(3, 46, 21, 0.2);
+}
+
+/* -------------------- */
+/* 5. Percentage Counter Section */
+/* -------------------- */
+/* -------------------- */
+/* 5. Percentage Counter Section (SPACING FIX) */
+/* -------------------- */
+.percentage-section {
+  /* CRITICAL FIX: Add margin to push the section down from the one above */
+  margin-top: 0; /* remove extra gap between sections */
+
+  padding: 80px var(--desktop-padding);
+  background: linear-gradient(180deg, #032e15 0%, #016630 100%);
+  width: var(--max-desktop-width);
+}
+/* ... rest of the percentage styles ... */
+
+.percentage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  text-align: center;
+}
+
+.percentage-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.percentage-item > div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.percentage-number {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--color-white); /* Changed from --color-primary-text */
+  line-height: 1;
+}
+
+.percentage-symbol {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1;
+}
+.percentage-label {
+  /* ENFORCED DIMENSIONS and CONTENT FLOW */
+  width: 215.495px; /* ENFORCED: Fixed Width */
+  height: 38px; /* ENFORCED: Fixed Height */
+
+  /* ENFORCED TYPOGRAPHY */
+  font-family: Inter, sans-serif;
+  font-weight: 300; /* Light */
+  font-size: 16px;
+  line-height: 19px; /* Setting a slight line-height for two rows (100% of 16px is too tight) */
+  letter-spacing: 0px;
+  text-align: center;
+  color: #ffffff; /* White */
+
+  /* Alignment Fixes */
+  margin-top: 0.5rem; /* Space below the number/symbol */
+  opacity: 1;
+}
+
+/* -------------------- */
+/* 6. Table Section */
+/* -------------------- */
+/* -------------------- */
+/* 6. Table Section (FINAL DIMENSIONS, POSITIONING, AND SPACING) */
+/* -------------------- */
+.table-section {
+  /* Vertical Spacing: ADDED space below the Percentage Section */
+  margin-top: 0; /* remove gap to attach sections */
+  margin-bottom: 0;
+
+  /* Left-align within canvas */
+  margin-left: 0;
+  margin-right: auto;
+
+  /* ENFORCED DIMENSIONS */
+  width: var(--max-desktop-width); /* match percentages/footer width */
+  height: auto; /* allow content to define the height to avoid extra gap */
+  opacity: 1;
+
+  /* Internal Aesthetics */
+  padding: 0; /* Remove internal padding since width/height are fixed */
+  background-color: var(--color-white);
+
+  /* Ensure the box model accounts for fixed dimensions */
+  box-sizing: border-box;
+
+  position: relative;
+
+  /* Layout: match requested 57px vertical gap between children */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 57px;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  background-color: var(--color-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.data-table thead {
+  background: linear-gradient(
+    180deg,
+    var(--color-btn-gradient-start) 0%,
+    var(--color-btn-gradient-end) 100%
+  );
+  color: var(--color-white);
+}
+
+.data-table th {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color 0.2s ease;
+}
+
+.data-table tbody tr:hover {
+  background-color: rgba(3, 46, 21, 0.03);
+}
+
+.data-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.data-table td {
+  padding: 1rem 1.5rem;
+  font-size: 0.95rem;
+  color: var(--color-primary-text);
+}
+
+/* ==================================== */
+/* 3. RESPONSIVE DESIGN */
+/* ==================================== */
+
+/* Tablet View (Max-Width 1024px) */
+@media (max-width: 1024px) {
+  .header-home {
+    left: 0;            /* ensure header is within viewport */
+    width: 100%;        /* span full viewport width on tablet/mobile */
+  }
+  .header-top {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-bottom: none;
+  }
+  .main-nav-home {
+    display: none;
+  }
+  .hamburger-menu {
+    display: inline-flex;
+  }
+
+  /* Mobile/Tablet: hide regular nav and show as dropdown when active */
+  .main-nav-home {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--color-white);
+    box-shadow: 0 8px 20px rgba(2, 18, 10, 0.08);
+    z-index: 25;
+    padding: 1rem 2rem;
+  }
+
+  .main-nav-home.active {
+    display: block;
+  }
+
+  .main-nav-home ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .main-nav-home a {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--color-primary-text);
+  }
+
+  .hero-content {
+    top: 80px;
+    left: 5%;
+    width: 65%;
+    min-height: auto;
+  }
+
+  .hero-headline {
+    width: auto;
+    height: auto;
+    font-size: 40px;
+    letter-spacing: normal;
+    margin-bottom: 24px;
+  }
+
+  .hero-tagline {
+    width: auto;
+    height: auto;
+    margin-bottom: 24px;
+    border: none;
+    padding: 0.5rem 1rem;
+  }
+
+  .hero-stats {
+    margin-bottom: 24px;
+  }
+
+  .stat-number {
+    font-size: 56px;
+  }
+
+  /* Product Section Responsive */
+  .product-section {
+    padding: 60px 2rem;
+  }
+
+  .product-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+  }
+
+  /* CRITICAL: RESET fixed widths for responsiveness */
+  .product-gallery,
+  .product-details,
+  .gallery-main,
+  .gallery-main-image,
+  .gallery-main-image img {
+    width: 100%;
+    max-width: 100%; /* Important for internal elements */
+    height: auto;
+    /* Retain aspect ratio */
+    aspect-ratio: 610 / 672.9945678710938;
+  }
+
+  .product-brand {
+    font-size: 1.75rem;
+  }
+
+  /* Responsive adjustment for included boxes in tablet view */
+  .included-options-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .included-box,
+  .main-bottle-box,
+  .samplers-box {
+    width: 100%;
+    max-width: 100%;
+    height: auto; /* Allow height to adjust on smaller screens */
+  }
+
+  .percentage-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .percentage-number {
+    font-size: 3rem;
+  }
+
+  .percentage-symbol {
+    font-size: 2rem;
+  }
+
+  .data-table {
+    min-width: 600px;
+  }
+}
+
+/* Mobile View (Max-Width 576px) */
+@media (max-width: 576px) {
+  .hero-section {
+    height: 75vh;
+    background-position: 65% bottom;
+  }
+
+  .header-top {
+    padding: 1rem;
+  }
+
+  .btn-shop-now {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+  }
+
+  .hero-content {
+    position: static;
+    top: auto;
+    left: auto;
+    width: 100%;
+    text-align: center;
+    padding-top: 5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hero-headline {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-number {
+    font-size: 48px;
+  }
+
+  .btn-primary-hero {
+    width: 80%;
+    height: auto;
+    line-height: normal;
+    padding: 0.8rem 1.5rem;
+  }
+
+  /* Product Section Mobile */
+  .product-section {
+    padding: 40px 1rem;
+  }
+
+  .product-brand {
+    font-size: 1.5rem;
+  }
+
+  .product-description {
+    font-size: 0.9rem;
+  }
+
+  .subscription-label,
+  .fragrance-name {
+    font-size: 0.9rem;
+  }
+
+  .current-price {
+    font-size: 1.1rem;
+  }
+
+  .fragrance-options {
+    flex-direction: column;
+  }
+
+  .fragrance-option {
+    width: 100%;
+    max-width: 610px;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .fragrance-icon {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
+
+  .sampler-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .gallery-thumbnails .thumbnail {
+    width: 60px;
+    height: 60px;
+  }
+
+  .radio-group-title {
+    font-size: 1.1rem;
+  }
+
+  .btn-add-to-cart {
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  /* Percentage Section Mobile */
+  .percentage-section {
+    padding: 40px 1rem;
+  }
+
+  .percentage-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .percentage-number {
+    font-size: 3.5rem;
+  }
+
+  .percentage-symbol {
+    font-size: 2.2rem;
+  }
+
+  .data-table {
+    font-size: 0.85rem;
+    min-width: 500px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.75rem 1rem;
+  }
+}
+/* ------------------------------------- */
+/* 7. NEW Detailed Info Section Layout */
+/* Positioned between Product & Counters */
+/* ------------------------------------- */
+.detailed-info-section {
+  /* Stretch section to match other full-width layouts */
+  width: 100%;
+  max-width: var(--max-desktop-width); /* 1456px */
+  height: 712px; /* ENFORCED: 712px height */
+
+  /* Centers the box horizontally within the viewport (accounting for the 60.05px left offset) */
+  margin: 0 auto;
+
+  /* Add padding to lift it visually off the element above/below */
+  padding: 40px 0;
+
+  /* For visualization during development */
+  background-color: #f0f0f0; /* Light gray background for visibility */
+  border: 1px dashed #333; /* Dashed border for boundary check */
+}
+/* ------------------------------------- */
+/* 7. NEW Detailed Info Section Layout */
+/* (Combined with previous structure) */
+/* ------------------------------------- */
+
+.detailed-info-section {
+  width: 100%;
+  max-width: var(--max-desktop-width); /* match full width like other sections */
+  height: 712px;
+  margin: 0 auto;
+  padding: 0; /* Remove generic padding to maximize content area */
+  box-sizing: border-box;
+  background-color: var(--color-white); /* Assuming white background */
+}
+
+/* Container to handle the two-column split */
+.detailed-info-content-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------
+ * LEFT COLUMN STYLING 
+ * -------------------- */
+.detailed-info-left-column {
+  /* Half of 1327px is 663.5px. We'll set the column to 50% for flexibility 
+     or you can enforce fixed widths for both. Let's use 50% */
+  width: 50%;
+  height: 100%;
+  padding: 40px; /* Internal padding for aesthetic spacing from the edges */
+  box-sizing: border-box;
+}
+
+/* 1. "Our Collection" Headline */
+.collection-headline {
+  /* ENFORCED Properties */
+  width: 626px; /* Matches your specification */
+  height: 44px; /* Matches your specification */
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 100%; /* Line height matches font size for tight leading */
+  letter-spacing: 0px;
+  color: #032e15;
+  margin-bottom: 24px; /* Space below the headline */
+}
+
+/* Accordion General Styling */
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Vertical gap between items */
+}
+
+.accordion-item {
+  width: 626px; /* Matching the width of the headline for alignment */
+  border-radius: 8px;
+  border: 1px solid #cdcdcd; /* Default border */
+}
+
+.accordion-item input[type="checkbox"] {
+  display: none; /* Hide the actual checkbox */
+}
+
+.accordion-label {
+  display: block;
+  padding: 24px 32px; /* ENFORCED: 24px top/bottom, 32px left/right padding */
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24.27px; /* 24.27px is approx 121.35% of 20px */
+  color: #032e15;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+  /* Add +/- icon (using pseudo-elements) */
+}
+
+/* Right aligned + icon for closed items */
+.accordion-label::after {
+  content: "+";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  color: #032e15;
+  pointer-events: none;
+}
+
+/* Show – when expanded */
+.accordion-item input[type="checkbox"]:checked + .accordion-label::after {
+  content: "–";
+}
+
+/* Accordion Item Content/Body */
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+  padding: 0 32px; /* Matches label horizontal padding */
+}
+
+/* Toggled State */
+.accordion-item input:checked ~ .accordion-body {
+  max-height: 400px; /* High enough to show the content */
+  padding-bottom: 32px; /* Padding for the bottom of the open content */
+}
+
+/* ENFORCED STYLING FOR THE OPEN BOX (Box-Large) */
+.scent-info-box {
+  border-radius: 8px;
+  border: none; /* remove inner box border */
+  width: 626px;
+  height: 167px; /* ENFORCED height */
+  padding: 32px; /* Internal padding */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.scent-box-title {
+  /* ENFORCED Properties */
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px; /* ENFORCED line-height */
+  color: #032e15;
+  margin-bottom: 8px; /* Small gap below title */
+}
+
+.scent-box-description {
+  /* ENFORCED Properties */
+  width: 578px; /* ENFORCED width, slightly less than 626px for padding */
+  font-family: Inter, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 20.23px; /* ENFORCED line-height */
+  color: #666666;
+  opacity: 1;
+  margin: 0;
+}
+
+/* --------------------
+ * RIGHT COLUMN STYLING 
+ * -------------------- */
+.detailed-info-right-column {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+}
+
+.detailed-info-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the 50% x 712px area */
+}
+
+/* This adjustment is needed to position the entire section correctly in relation 
+   to the page's container/padding, matching the requested left offset of 60.05px.
+   (The current .container already handles left/right padding, but adding a specific 
+   padding ensures the content area starts where you expect relative to the edge) */
+.product-page-wrapper {
+  padding-left: 8px;   /* move main content further to the left */
+  padding-right: 24px; /* symmetric padding on the right */
+}
+/* -------------------- */
+/* 6.3 Comparison Table - Final Styling Details */
+/* -------------------- */
+
+/* Ensure the wrapper respects the boundaries of the parent */
+.comparison-table-wrapper {
+  /* Ensure content is horizontally centered within the 950px .table-section */
+  margin: 0 auto;
+  /* Remove side padding so fixed grid widths align exactly to 950.136... */
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Tweak alignment for the main title */
+.table-comparison-title {
+  /* Use section's flex gap for spacing */
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+/* Adjust the padding for cells that contain text/numbers */
+.comparison-cell {
+  padding: 14px 12px; /* Slightly reduced vertical padding for tighter fit */
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500; /* Medium weight for data/numbers */
+  text-align: center; /* center content by default */
+}
+
+/* Ensure the CTA wrapper below the table does not add extra margin,
+   keeping the inter-element gap at exactly 57px */
+.table-section > div:last-child {
+  margin-top: 0 !important;
+}
+
+/* Product Name/Image Headers */
+.product-name-cell {
+  /* Match the product name font style */
+  font-weight: 600;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* GTG Column Highlight (Refined opacity) */
+.gtg-cell {
+  background-color: rgba(3, 46, 21, 0.04); /* Very light green highlight */
+  font-weight: 700; /* Bold numbers/text in the GTG column */
+}
+
+/* Qualities Column (First Column) */
+.qualities-cell {
+  font-weight: 600; /* Bold weight for the feature names */
+  text-align: left; /* keep first column left-aligned */
+}
+
+/* Ensure icons/text are truly centered within body cells */
+.comparison-table .comparison-row:not(.header-row) .comparison-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* lock row cell height so content centers perfectly between lines */
+  height: 56px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Keep the first column left-aligned within body rows */
+.comparison-table .comparison-row:not(.header-row) .comparison-cell.qualities-cell {
+  justify-content: flex-start;
+}
+
+/* Body label typography (Potency Concentration, Longevity, etc.) */
+.comparison-table .comparison-row:not(.header-row) .qualities-cell {
+  font-family: "Inter", sans-serif;
+  font-weight: 700; /* Bold */
+  font-size: 16px;
+  line-height: 19.16px;
+  letter-spacing: 0px;
+  color: var(--color-primary-text);
+}
+
+/* --- Icon Styling (Checkmark and X) --- */
+.check-icon,
+.x-icon {
+  /* Icon (glyph) size from spec */
+  font-size: 13.4304780960083px;
+  line-height: 1;
+  opacity: 1;
+
+  /* Circle container */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.02px solid #F0EEE6;
+  background-color: #ffffff;
+}
+
+.check-icon {
+  color: #F0EEE6; /* tick color */
+  background-color: #032E15; /* filled background */
+  border-color: #F0EEE6; /* specified border */
+}
+
+.x-icon {
+  color: #999; /* grey X */
+}
+
+/* =============================== */
+/* 6.4 Comparison Table - 4 Columns */
+/* =============================== */
+.table-section-separator {
+  width: 100%;
+  text-align: center;
+  font-family: "Oxanium", sans-serif;
+  font-weight: 300; /* Light */
+  font-style: normal;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  color: var(--color-primary-text);
+}
+.post-table-banner {
+  width: 1460px;
+  height: 391.5158996582031px;
+  background: #032E15;
+  opacity: 1;
+  margin: 0 0 0 0; /* attach left with no auto-centering */
+  position: relative;
+  left: 0; /* align to left edge */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 0;
+}
+.post-table-banner-inner {
+  width: 100%;
+  height: 100%;
+  position: relative; /* enable absolute children */
+  color: #F0EEE6;
+}
+.footer-brand {
+  font-family: "Inter", sans-serif;
+  font-weight: 700; /* Bold */
+  font-size: 42.32px;
+  line-height: 100%;
+  letter-spacing: 0;
+  width: 301px;
+  height: 73px;
+  display: block;
+  position: absolute;
+  top: 75.52px;
+  left: 81px;
+  padding: 0;
+}
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16.18px;
+}
+.footer-list a {
+  text-decoration: none;
+  color: #F0EEE6;
+  opacity: 0.95;
+}
+.post-table-banner-inner > .footer-links {
+  position: absolute;
+  width: 171.24476623535156px;
+  height: 111.54183197021484px;
+  top: 162.61px;
+}
+.footer-links-col1 { left: 85.13px; }
+.footer-links-col2 { left: 296.82px; }
+.footer-social {
+  position: absolute;
+  width: 171.24476623535156px;
+  height: 111.54183197021484px;
+  top: 162.61px;
+  left: 508.51px; /* inferred to align with columns */
+}
+.footer-social .footer-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.footer-social i {
+  width: 20px;
+  text-align: center;
+  opacity: 0.95;
+}
+.footer-newsletter {
+  position: absolute;
+  width: 505.6440124511719px;
+  height: 148.99449157714844px;
+  top: 148.79px;
+  left: 869.52px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.newsletter-title {
+  margin: 0 0 6px 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #F0EEE6;
+  opacity: 0.95;
+}
+.newsletter-form {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+.newsletter-input {
+  flex: 1 1 auto;
+  min-width: 240px;
+  height: 36px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: transparent;
+  color: #fff;
+}
+.newsletter-input::placeholder {
+  color: rgba(255,255,255,0.75);
+}
+.newsletter-button {
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: none;
+  background: #8A572C;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.newsletter-caption {
+  margin: 0;
+  font-size: 11px;
+  color: rgba(255,255,255,0.75);
+}
+.newsletter-caption a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: underline;
+}
+.post-table-banner-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.comparison-table {
+  position: relative;
+  width: 100%;
+  height: auto; /* fit to content height */
+  box-sizing: border-box;
+  z-index: 1; /* ensure above overlay */
+}
+
+/* Robust bottom rule spanning full width regardless of last-row borders */
+.comparison-table::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: #E3EFE6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Grid across every row: first column (qualities) + four 199px product columns */
+.comparison-row {
+  display: grid;
+  grid-template-columns: 154.1367797851562px repeat(4, 199px);
+  align-items: center;
+}
+
+/* Remove per-cell background; column highlight will be handled by absolute overlay */
+.comparison-row .comparison-cell:nth-child(2) {
+  background-color: transparent;
+}
+
+/* Reset any rounding on GTG cells; handled by overlay */
+.comparison-row.header-row .comparison-cell:nth-child(2) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Reset bottom rounding */
+.comparison-table .comparison-row:last-child .comparison-cell:nth-child(2) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Row separators across full width (overlay sits behind so no white gaps) */
+.comparison-row.header-row {
+  border-bottom: 1px solid #E3EFE6;
+}
+.comparison-table .comparison-row:not(.header-row) {
+  border-top: 1px solid #E3EFE6;
+}
+/* Ensure a closing line at the bottom of the table */
+.comparison-table .comparison-row:last-child {
+  border-bottom: 1px solid #E3EFE6;
+}
+
+/* Slightly increase header vertical spacing for air */
+.comparison-row.header-row .comparison-cell {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+/* Header product cells: center image + label */
+.comparison-row.header-row .product-name-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+/* "Qualities" header text styling */
+.comparison-row.header-row .qualities-header {
+  font-family: "Inter", sans-serif;
+  font-weight: 700; /* Bold */
+  font-size: 16px;
+  line-height: 22.99px;
+  letter-spacing: 0px;
+  color: var(--color-primary-text);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+/* Tidy product images */
+.comparison-row.header-row .product-name-cell img {
+  display: block;
+  width: 88px;
+  height: 87px;
+  object-fit: cover;
+  border-radius: 15px;
+  opacity: 1;
+}
+
+/* Absolute overlay for GTG column using exact measurements */
+.col-highlight-gtg {
+  position: absolute;
+  top: 0;
+  left: 154.1367797851562px;
+  width: 199px;
+  height: 100%; /* follow table height so it ends at the last row */
+  background-color: #F0FDF4;
+  border-radius: 15.17px;
+  z-index: 0;
+}
